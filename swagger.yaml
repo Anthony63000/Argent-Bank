@@ -47,7 +47,6 @@ paths:
           schema:
             $ref: '#/definitions/User'
       produces:
-        - application/json
       responses:
         '200':
           description: Signup Successfully
