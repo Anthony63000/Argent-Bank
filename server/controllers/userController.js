@@ -37,7 +37,7 @@ module.exports.loginUser = async (req, res) => {
 module.exports.getUserProfile = async (req, res) => {
   let response = {}
 
-  try {
+  try { 
     const responseFromService = await userService.getUserProfile(req)
     response.status = 200
     response.message = 'Successfully got user profile data'
@@ -67,3 +67,6 @@ module.exports.updateUserProfile = async (req, res) => {
 
   return res.status(response.status).send(response)
 }
+
+
+
