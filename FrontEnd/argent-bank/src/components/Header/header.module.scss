@@ -1,0 +1,75 @@
+
+@import "../../assets/styles/mixin";
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
+    height: 54.38px;
+
+    .logoContainer {
+        display: flex;
+        align-items: center;
+        width: 200px;
+
+        @include S {
+            width: 120px;
+        }
+
+        .linkLogo {
+
+            .title {
+                height: 1px;
+                font-size: 0px;
+                position: absolute;
+                z-index: -1;
+            }
+
+            .logo {
+                width: 200px;
+                object-fit: cover;
+                
+                @include S {
+                    width: 120px;
+                }
+            }
+        }    
+    }
+
+    .rightContainer {
+
+        .navigationContainer {
+            
+            .listContainer {
+                display: flex;
+                margin-right: 8px;
+                gap: 8px;
+                
+                @include S { 
+                    padding-left: 5px;
+                }
+                
+                .link {
+                    text-decoration: none;
+                    color: inherit;
+                    font-weight: bold;
+                    font-size: 17px;
+                    display: flex;
+                    gap: 5px;
+
+                    @include S {
+                        font-size: 14px;
+                    }
+
+                    &:hover .list {
+                        text-decoration: underline;
+                    }
+
+                    .list {
+                        list-style-type: none;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,12 @@
+.container {
+    padding: 32px 0 24px 0;
+    border-top: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .text {
+        margin: 0;
+        padding: 0;
+    }
+}
