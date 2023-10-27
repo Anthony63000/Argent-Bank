@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const updateUserName = createAsyncThunk(
-  "user/updateUserName",
+  "userName/updateUserName",
   async ({ userName }) => {
       const response = await fetch("http://localhost:3001/api/v1/user/profile", {
         method: 'PUT',
@@ -30,7 +30,7 @@ export const updateUserName = createAsyncThunk(
 );
 
 const userSlice = createSlice({
-  name: "user",
+  name: "userName",
   initialState,
   reducers: {
   },
@@ -38,14 +38,11 @@ const userSlice = createSlice({
     builder
       .addCase(updateUserName.pending, (state) => {
         state.isLoading = true;
-        state.error = null;
       })
       .addCase(updateUserName.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.userName = action.payload.body.userName; 
       })
       .addCase(updateUserName.rejected, (state, action) => {
-        state.isLoading = false;
         state.error = action.payload;
       });
   },

@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 const initialState = {
     error: null,
     isLoading: false,
-    isConnected: false
+    isConnected: false,
 }
 
 export const fetchLogIn = createAsyncThunk("logIn/fetchLogIn", async ({ email, password }) => {
@@ -35,23 +35,17 @@ const logInSlice = createSlice({
         builder
             .addCase(fetchLogIn.pending, (state) => {
                 state.isLoading = true;
-                state.error = null;
             })
             .addCase(fetchLogIn.fulfilled, (state, action) => {
                 state.isLoading = false;
-                if (action.payload.body && action.payload.body.token) {
-                    Cookies.set('token', action.payload.body.token, { 
-                        secure: true, 
-                        sameSite: 'strict',
-                        expires: 30 / (24 * 60)
-                    });
-                    state.isConnected = true;
-                    console.log(action.payload.body)
-                }
+                Cookies.set('token', action.payload.body.token, { 
+                    secure: true, 
+                    sameSite: 'strict',
+                    expires: 30 / (24 * 60)
+                });
+                state.isConnected = true;
             })
-            
             .addCase(fetchLogIn.rejected, (state, action) => {
-                state.isLoading = false;
                 state.error = action.error.message;
             });
     }

@@ -47,6 +47,7 @@ paths:
           schema:
             $ref: '#/definitions/User'
       produces:
+        - application/json
       responses:
         '200':
           description: Signup Successfully
@@ -100,6 +101,97 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  /user/profile/accounts:      
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Account Module
+      summary: Get an Account
+      description: API for get an account
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: Get account successfully
+          schema:
+            $ref: '#/definitions/AccountsResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+          
+  /user/profile/accounts/transactions/{transactionId}/category:
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - User Account Module
+      summary: Update Transaction Category
+      description: API to update the category of a transaction.
+      parameters:
+        - in: path
+          name: transactionId
+          description: ID of the transaction to update.
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: New category for the transaction.
+          required: true
+          schema:
+            type: object
+            properties:
+              category:
+                type: string
+                enum:
+                  - Option 1
+                  - Option 2
+                  - Option 3
+      responses:
+        '200':
+          description: Category updated successfully.
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '404':
+          description: Unknown Category
+        '500':
+          description: Internal Server Error
+  /user/profile/accounts/transactions/{transactionId}/note:
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - User Account Module
+      summary: Add or update Note to Transaction
+      description: API to add or update a note to a transaction.
+      parameters:
+        - in: path
+          name: transactionId
+          description: ID of the transaction to add or update a note to.
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Request body to add a note.
+          required: true
+          schema: 
+            type: object
+            properties:
+              note:
+                type: string
+      responses:
+        '201':
+          description: Note added successfully.
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -155,3 +247,70 @@ definitions:
     properties:
       userName:
         type: string
+  AccountsResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          account:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                accountNumber:
+                  type: string
+                balance:
+                  type: number
+                transactions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      accountId:
+                        type: string
+                      date:
+                        type: string
+                      description:
+                        type: string
+                      amount:
+                        type: number
+                      type:
+                        type: string
+                      category:
+                        type: string
+                      note:
+                        type: string
+
+  TransactionResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          date:
+            type: string
+          description:
+            type: string
+          amount:
+            type: number
+          type:
+            type: string
+          category:
+            type: string
+          note:
+            type: string

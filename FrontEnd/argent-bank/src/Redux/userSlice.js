@@ -36,14 +36,12 @@ const userProfileSlice = createSlice({
         builder
             .addCase(fetchUserProfile.pending, (state) => {
                 state.isLoading = true;
-                state.error = null;
             })
             .addCase(fetchUserProfile.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.userProfile = action.payload.body;
             })
             .addCase(fetchUserProfile.rejected, (state, action) => {
-                state.isLoading = false;
                 state.error = action.error.message;
             });
     }
