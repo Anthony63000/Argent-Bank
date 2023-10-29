@@ -20,7 +20,7 @@ root.render(
           <Route path='/User' element={<AuthGuard><User /></AuthGuard>}/>
         </Routes>
       </Router>
-      </Provider>
+    </Provider>
   </React.StrictMode>
 );
 
