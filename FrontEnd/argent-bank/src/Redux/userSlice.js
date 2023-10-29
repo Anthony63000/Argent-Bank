@@ -7,7 +7,7 @@ const initialState = {
     isLoading : false,
 };
 
-export const fetchUserProfile = createAsyncThunk("user/fetchUserProfile", async () => {
+export const fetchUserProfile = createAsyncThunk("userProfile/fetchUserProfile", async () => {
     const response = await fetch("http://localhost:3001/api/v1/user/profile", {
         method: 'POST',
         headers: {
