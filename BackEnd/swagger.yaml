@@ -123,14 +123,14 @@ paths:
         '500':
           description: Internal Server Error
           
-  /user/profile/accounts/transactions/{transactionId}/category:
+  /user/profile/accounts/transactions/{transactionId}:
     patch:
       security:
         - Bearer: []
       tags:
         - User Account Module
-      summary: Update Transaction Category
-      description: API to update the category of a transaction.
+      summary: Update Note or Category Transactions
+      description: API to update the category or add/update a note of a transaction.
       parameters:
         - in: path
           name: transactionId
@@ -139,7 +139,7 @@ paths:
           type: string
         - in: body
           name: body
-          description: New category for the transaction.
+          description: Request body to update the transaction.
           required: true
           schema:
             type: object
@@ -150,47 +150,18 @@ paths:
                   - Option 1
                   - Option 2
                   - Option 3
-      responses:
-        '200':
-          description: Category updated successfully.
-          schema:
-            $ref: '#/definitions/TransactionResponse'
-        '404':
-          description: Unknown Category
-        '500':
-          description: Internal Server Error
-  /user/profile/accounts/transactions/{transactionId}/note:
-    patch:
-      security:
-        - Bearer: []
-      tags:
-        - User Account Module
-      summary: Add or update Note to Transaction
-      description: API to add or update a note to a transaction.
-      parameters:
-        - in: path
-          name: transactionId
-          description: ID of the transaction to add or update a note to.
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: Request body to add a note.
-          required: true
-          schema: 
-            type: object
-            properties:
               note:
                 type: string
       responses:
-        '201':
-          description: Note added successfully.
+        '200':
+          description: Category or note updated successfully.
           schema:
             $ref: '#/definitions/TransactionResponse'
-        '400':
-          description: Invalid Fields
+        '404':
+          description: Unknown Category or 	Invalid Fields
         '500':
           description: Internal Server Error
+
 
 securityDefinitions:
   Bearer:
